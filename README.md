@@ -1,22 +1,31 @@
-### Тестирование API
+cat > README.md << 'EOF'
+# Petstore QA Automation
 
-Проект включает тестирование CRUD-операций для Swagger Petstore API:
+Тестирование Swagger Petstore API (CRUD операции)
 
-## Postman коллекция
-- Файл: `MyPetProject.postman_collection.json`
-- Окружение: `MyNewEnvironment.postman_environment.json`
+##  Что внутри
+
+### API тесты (Python + pytest)
+- 5 тестов, покрывающих полный CRUD цикл
+- Независимые тесты с изоляцией состояния
+- Проверка позитивных и негативных сценариев
+- Стек: Python 3.11, pytest, requests
+
+### Postman коллекция
 - 5 запросов (POST, GET, PUT, DELETE, GET(негативный тест))
 - 10 автоматических проверок
+- Переменные окружения
+- Интеграционные проверки (GET после DELETE)
 
-## Python автотесты
-- Файл: `test_petstore.py`
-- Стек: pytest, requests
-- 5 тестов, покрывающих полный CRUD цикл
+## 🚀 Запуск
 
-## Запуск
+### Python тесты
 ```bash
-# Python тесты
-pytest test_petstore.py -v
+# Установка зависимостей
+pip install -r requirements.txt
 
-# Postman
-Импорт коллекции в Postman → запуск через Collection Runner
+# Запуск всех API тестов
+pytest api_tests/ -v
+
+# Запуск конкретного файла
+pytest api_tests/test_petstore.py -v
