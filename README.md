@@ -1,4 +1,3 @@
-cat > README.md << 'EOF'
 # Petstore QA Automation
 
 Тестирование Swagger Petstore API (CRUD операции)
@@ -17,7 +16,7 @@ cat > README.md << 'EOF'
 - Переменные окружения
 - Интеграционные проверки (GET после DELETE)
 
-## 🚀 Запуск
+## Запуск
 
 ### Python тесты
 ```bash
