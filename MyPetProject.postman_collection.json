@@ -1,0 +1,189 @@
+{
+  "info": {
+    "_postman_id": "625e96eb-df0b-4dee-ba83-436f09c6a27a",
+    "name": "MyPetProject",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "40003455"
+  },
+  "item": [
+    {
+      "name": "AddNewPet",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\npm.test(\"Pet name is correct\", function () {\n    var jsonData = pm.response.json();\n    pm.expect(jsonData.name).to.eql(\"qa_automation_dog\");\n\n    pm.environment.set(\"Pet_id\", jsonData.id); // Store the pet ID in an environment variable for future use\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"id\": 777888999,\n    \"name\": \"qa_automation_dog\",\n    \"status\": \"available\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseURL}}/pet",
+          "host": [
+            "{{BaseURL}}"
+          ],
+          "path": [
+            "pet"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GetPetByID",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Response time is less than 500ms\", function () {\n    pm.expect(pm.response.responseTime).to.be.below(500);\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"id\": 777888999,\n    \"name\": \"qa_automation_dog\",\n    \"status\": \"available\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseURL}}/pet/{{Pet_id}}",
+          "host": [
+            "{{BaseURL}}"
+          ],
+          "path": [
+            "pet",
+            "{{Pet_id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "UpdatePet",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Pet name has been updated\", function () {\n    var jsonData = pm.response.json();\n    pm.expect(jsonData.name).to.eql(\"qa_automation_dog_updated\");\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"id\": 777888999,\n    \"name\": \"qa_automation_dog_updated\",\n    \"status\": \"pending\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseURL}}/pet",
+          "host": [
+            "{{BaseURL}}"
+          ],
+          "path": [
+            "pet"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "DeletePet",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Message contains deleted pet ID\", function () {\n    var jsonData = pm.response.json();\n    var petId = pm.environment.get(\"Pet_id\").toString();\n    pm.expect(jsonData.message).to.eql(petId);\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseURL}}/pet/{{Pet_id}}",
+          "host": [
+            "{{BaseURL}}"
+          ],
+          "path": [
+            "pet",
+            "{{Pet_id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GetDeletedPet_Negative",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 404\", function () {\n    pm.response.to.have.status(404);\n});\n\npm.test(\"Error message confirms deletion\", function () {\n    var jsonData = pm.response.json();\n    pm.expect(jsonData.message).to.eql(\"Pet not found\");\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{BaseURL}}/pet/{{Pet_id}}",
+          "host": [
+            "{{BaseURL}}"
+          ],
+          "path": [
+            "pet",
+            "{{Pet_id}}"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

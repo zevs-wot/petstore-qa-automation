@@ -1,0 +1,16 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "pytest: run all tests",
+            "type": "python",
+            "request": "launch",
+            "module": "pytest",
+            "args": [
+                "test_petstore.py",
+                "-v"
+            ],
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}
